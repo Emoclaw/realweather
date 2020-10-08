@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    android:background="@android:color/black">
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <androidx.constraintlayout.motion.widget.MotionLayout
+                xmlns:motion="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutDescription="@xml/activity_main_scene"
+                app:motionDebug="SHOW_PATH"
+                android:minHeight="80dp"
+                motion:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textView"
+                    android:text="25°C"
+                    android:textColor="@android:color/white"
+                    android:textSize="48sp"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_weather_hourly"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
