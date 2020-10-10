@@ -1,5 +1,6 @@
 package com.karakostas.realweather
 
-class Weather(var degrees: Int) {
-
+class Weather(degrees: Int) {
+    var degrees: Int = degrees
+        get() = field
 }

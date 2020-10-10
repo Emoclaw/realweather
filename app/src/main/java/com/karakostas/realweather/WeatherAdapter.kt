@@ -21,13 +21,12 @@ class WeatherAdapter() :
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val weather: Weather = getItem(position)
-            holder.degreeTextView?.setText(weather.degrees)
+            holder.degreeTextView?.text = weather.degrees.toString()
         }
 
 
 
-
-        class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val degreeTextView:TextView? = itemView.findViewById(R.id.weather_textview)
 
         }

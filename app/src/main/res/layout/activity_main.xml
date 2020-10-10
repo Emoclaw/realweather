@@ -7,32 +7,89 @@
     android:layout_width="match_parent"
     android:fillViewport="true"
     android:background="@android:color/black">
+    <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+               android:id="@+id/weather_image"
+               app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+               android:scaleType="centerCrop"/>
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar_layout"
+            android:background="#00000000"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <androidx.constraintlayout.motion.widget.MotionLayout
-                xmlns:motion="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/motion_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutDescription="@xml/activity_main_scene"
-                app:motionDebug="SHOW_PATH"
-                android:minHeight="80dp"
-                motion:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                android:minHeight="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+            <View android:layout_width="match_parent" android:layout_height="280dp"
+                  android:id="@+id/blackbg"
+                  android:background="#ad000000"
+                  app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+            <ImageView android:layout_width="90dp" android:layout_height="90dp"
+                       android:src="@drawable/sun_yellow"
+                       android:id="@+id/main_weather_icon"
+                       android:scaleType="fitCenter"
+
+                       app:layout_constraintBottom_toBottomOf="@+id/main_weather_temperature"
+                       app:layout_constraintRight_toLeftOf="@id/main_weather_temperature"
+                       app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintHorizontal_chainStyle="packed"/>
+
             <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textView"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/main_weather_temperature"
                     android:text="25°C"
                     android:textColor="@android:color/white"
-                    android:textSize="48sp"
-                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:textSize="64sp"
+
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/main_weather_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            <ImageView android:layout_width="16dp" android:layout_height="16dp"
+                       android:src="@drawable/location_white"
+                       android:id="@+id/location_icon"
+                       android:scaleType="fitCenter"
+                       android:elevation="4dp"/>
+            <TextView
+                    android:id="@+id/main_location_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="New York, NY"
+                    android:transformPivotX="0sp"
+                    android:transformPivotY="9sp"
+                    android:textStyle="bold"
+
+                    android:text="Thessaloniki, Greece"
+                    android:shadowRadius="2"
+                    android:elevation="4dp"
+                    android:textColor="@android:color/white"
+                    />
+            <TextView
+                    android:id="@+id/main_precipitation_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Precipitation: 5%"
+                    android:textSize="14sp"
+                    android:text="Precipitation: 27%"
+                    android:textColor="#fafafa"
+                    app:layout_constraintTop_toBottomOf="@id/main_weather_temperature"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
         </androidx.constraintlayout.motion.widget.MotionLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_weather_hourly"
             android:layout_width="match_parent"
