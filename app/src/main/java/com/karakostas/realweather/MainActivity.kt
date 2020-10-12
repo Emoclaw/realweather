@@ -1,10 +1,8 @@
 package com.karakostas.realweather
 
 import android.os.Bundle
-import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.fasterxml.jackson.databind.node.ObjectNode
@@ -46,13 +44,14 @@ private val adapter = WeatherAdapter()
             override fun onResponse(call: Call, response: Response) {
                 val mapper = jacksonObjectMapper()
                 val node: ObjectNode = mapper.readValue(response.body!!.string())
-
                 mainWeather = mapper.readValue(node.get("current").toString())
                 hourlyWeatherList = mapper.readValue(node.get("hourly").toString())
+
                 runOnUiThread {
                     main_weather_temperature.text = mainWeather.degrees.roundToInt().toString() + "°C"
-                    adapter.submitList(hourlyWeatherList)
-                    if (System.currentTimeMillis() < mainWeather.sunset) {
+                    main_status_textview.text = mainWeather.cat
+                    adapter.submitList(hourlyWeatherList.take(23))
+                    if (System.currentTimeMillis() < mainWeather.sunset*1000) {
                         Glide.with(applicationContext).load(R.drawable.sun_yellow_gradient).into(main_weather_icon)
                     } else {
                         Glide.with(applicationContext).load(R.drawable.moon).into(main_weather_icon)

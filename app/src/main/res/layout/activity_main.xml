@@ -76,12 +76,11 @@
                     android:textColor="@android:color/white"
                     />
             <TextView
-                    android:id="@+id/main_precipitation_textview"
+                    android:id="@+id/main_status_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="Precipitation: 5%"
                     android:textSize="14sp"
-                    android:text="Precipitation: 27%"
                     android:textColor="#fafafa"
                     app:layout_constraintTop_toBottomOf="@id/main_weather_temperature"
                     app:layout_constraintLeft_toLeftOf="parent"

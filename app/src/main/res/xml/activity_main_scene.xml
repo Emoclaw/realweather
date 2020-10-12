@@ -2,7 +2,7 @@
 <MotionScene
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:motion="http://schemas.android.com/apk/res-auto">
+>
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
@@ -81,7 +81,7 @@
                     android:scaleY="0.0"
                     app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/main_weather_temperature"/>
-        <Constraint android:id="@+id/main_precipitation_textview" android:layout_width="wrap_content"
+        <Constraint android:id="@+id/main_status_textview" android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.0"
                     android:scaleX="0.0"

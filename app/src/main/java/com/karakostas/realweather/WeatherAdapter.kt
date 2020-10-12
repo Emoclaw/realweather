@@ -9,9 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ca.rmen.sunrisesunset.SunriseSunset
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -35,8 +33,11 @@ class WeatherAdapter() :
             sdf.timeZone = tz
             val localTime = sdf.format(Date(weather.time * 1000))
             holder.timeTextView.text = localTime
-            //TODO: use appropriate icon
-            Glide.with(mContext).load(R.drawable.sun_yellow_gradient).into(holder.weatherImageView)
+            //TODO: expand icons (clouds, rain, snow etc)
+            if (weather.icon[2] == 'd')
+                Glide.with(mContext).load(R.drawable.sun_yellow_gradient).into(holder.weatherImageView)
+            else
+                Glide.with(mContext).load(R.drawable.moon).into(holder.weatherImageView)
 
         }
 
