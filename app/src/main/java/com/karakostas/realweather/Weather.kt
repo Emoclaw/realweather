@@ -1,11 +1,18 @@
 package com.karakostas.realweather
 
-import com.fasterxml.jackson.annotation.JsonAlias
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 
+@JsonDeserialize(using = WeatherDeserializer::class)
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Weather(@JsonProperty("temp") var degrees: Float, var sunset: Long, var sunrise: Long, @JsonProperty("dt") var time: Long) {
+class Weather() {
 
+        var degrees: Double = 0.0
+        var sunset: Long = 0
+        var sunrise: Long = 0
+        var time: Long = 0
+        lateinit var cat:String
+        lateinit var icon:String
 
 }
+
