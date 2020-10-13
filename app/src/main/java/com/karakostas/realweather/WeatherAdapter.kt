@@ -35,7 +35,7 @@ class WeatherAdapter() :
             holder.timeTextView.text = localTime
             //TODO: expand icons (clouds, rain, snow etc)
             if (weather.icon[2] == 'd')
-                Glide.with(mContext).load(R.drawable.sun_yellow_gradient).into(holder.weatherImageView)
+                Glide.with(mContext).load(R.drawable.sun_yellow_large).into(holder.weatherImageView)
             else
                 Glide.with(mContext).load(R.drawable.moon).into(holder.weatherImageView)
 
