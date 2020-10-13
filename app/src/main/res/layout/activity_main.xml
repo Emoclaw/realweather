@@ -70,7 +70,6 @@
                     android:transformPivotY="9sp"
                     android:textStyle="bold"
 
-                    android:text="Thessaloniki, Greece"
                     android:shadowRadius="2"
                     android:elevation="4dp"
                     android:textColor="@android:color/white"
