@@ -18,6 +18,8 @@ class WeatherDeserializer() : JsonDeserializer<Weather>() {
         if (weatherNode.get("sunset") != null) weather.sunset = weatherNode.get("sunset").asLong()
         weather.cat = categoryNode.get("main").asText()
         weather.icon = categoryNode.get("icon").asText()
+        weather.clouds = weatherNode.get("clouds").asInt()
+        weather.subcat = categoryNode.get("description").asText()
         return weather
     }
 }
