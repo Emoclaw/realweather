@@ -110,12 +110,24 @@ private val adapter = WeatherAdapter()
 
                     runOnUiThread {
                         main_weather_temperature.text = mainWeather.degrees.roundToInt().toString() + "°C"
-                        main_status_textview.text = mainWeather.cat
+                        main_status_textview.text = mainWeather.subcat
                         adapter.submitList(hourlyWeatherList.take(23))
                         if (System.currentTimeMillis() < mainWeather.sunset * 1000) {
-                            Glide.with(applicationContext).load(R.drawable.sun_yellow_large).into(main_weather_icon)
+                            when (mainWeather.clouds) {
+                                in 0..10  -> Glide.with(applicationContext).load(R.drawable.sun_yellow_large).into(main_weather_icon)
+                                in 11..25 -> Glide.with(applicationContext).load(R.drawable.sun_clouds_light).into(main_weather_icon)
+                                in 26..50 -> Glide.with(applicationContext).load(R.drawable.sun_clouds_scattered).into(main_weather_icon)
+                                else -> Glide.with(applicationContext).load(R.drawable.clouds_broken_overcast).into(main_weather_icon)
+                            }
+
                         } else {
-                            Glide.with(applicationContext).load(R.drawable.moon).into(main_weather_icon)
+                            when (mainWeather.clouds) {
+                                in 0..10  -> Glide.with(applicationContext).load(R.drawable.moon).into(main_weather_icon)
+                                in 11..25 -> Glide.with(applicationContext).load(R.drawable.moon_cloud_light).into(main_weather_icon)
+                                in 26..50 -> Glide.with(applicationContext).load(R.drawable.moon_clouds_scattered).into(main_weather_icon)
+                                else -> Glide.with(applicationContext).load(R.drawable.clouds_broken_overcast).into(main_weather_icon)
+                            }
+
                         }
                     }
 

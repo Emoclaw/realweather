@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -34,10 +35,23 @@ class WeatherAdapter() :
             val localTime = sdf.format(Date(weather.time * 1000))
             holder.timeTextView.text = localTime
             //TODO: expand icons (clouds, rain, snow etc)
-            if (weather.icon[2] == 'd')
-                Glide.with(mContext).load(R.drawable.sun_yellow_large).into(holder.weatherImageView)
-            else
-                Glide.with(mContext).load(R.drawable.moon).into(holder.weatherImageView)
+            if (weather.icon[2] == 'd') {
+                when (weather.clouds) {
+                    in 0..10  -> Glide.with(mContext).load(R.drawable.sun_yellow_large).into(holder.weatherImageView)
+                    in 11..25 -> Glide.with(mContext).load(R.drawable.sun_clouds_light).into(holder.weatherImageView)
+                    in 26..50 -> Glide.with(mContext).load(R.drawable.sun_clouds_scattered).into(holder.weatherImageView)
+                    else -> Glide.with(mContext).load(R.drawable.clouds_broken_overcast).into(holder.weatherImageView)
+                }
+
+            } else {
+                when (weather.clouds) {
+                    in 0..10  -> Glide.with(mContext).load(R.drawable.moon).into(holder.weatherImageView)
+                    in 11..25 -> Glide.with(mContext).load(R.drawable.moon_cloud_light).into(holder.weatherImageView)
+                    in 26..50 -> Glide.with(mContext).load(R.drawable.moon_clouds_scattered).into(holder.weatherImageView)
+                    else -> Glide.with(mContext).load(R.drawable.clouds_broken_overcast).into(holder.weatherImageView)
+                }
+
+            }
 
         }
 
