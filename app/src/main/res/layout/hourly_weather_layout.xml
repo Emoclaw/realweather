@@ -21,7 +21,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            tools:src="@drawable/sun_yellow_gradient"
+            tools:src="@drawable/sun_clouds_scattered"
             app:layout_constraintTop_toTopOf="parent"/>
     <TextView
             android:id="@+id/weather_textview"

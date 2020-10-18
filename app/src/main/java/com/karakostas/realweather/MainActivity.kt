@@ -27,7 +27,7 @@ import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
 private val client = OkHttpClient()
-private val adapter = WeatherAdapter()
+private val adapter = HourlyWeatherAdapter()
     lateinit var fusedLocationClient : FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

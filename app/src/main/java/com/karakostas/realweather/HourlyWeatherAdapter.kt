@@ -10,18 +10,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-class WeatherAdapter() :
-    ListAdapter<Weather, WeatherAdapter.ViewHolder>(WeatherDiffCallBack()) {
+class HourlyWeatherAdapter() :
+    ListAdapter<Weather, HourlyWeatherAdapter.ViewHolder>(WeatherDiffCallBack()) {
     private lateinit var mContext : Context
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             mContext = parent.context
-            val view: View = layoutInflater.inflate(R.layout.weather, parent, false)
+            val view: View = layoutInflater.inflate(R.layout.hourly_weather_layout, parent, false)
             return ViewHolder(view)
         }
 
