@@ -121,7 +121,7 @@ private val dailyAdapter = DailyWeatherAdapter()
                         main_status_textview.text = mainWeather.subcat
                         adapter.submitList(hourlyWeatherList.take(23))
                         dailyAdapter.submitList(dailyWeatherList)
-                        if (System.currentTimeMillis() < mainWeather.sunset * 1000) {
+                        if (mainWeather.icon[2] == 'd') {
                             when (mainWeather.clouds) {
                                 in 0..10  -> Glide.with(applicationContext).load(R.drawable.sun_yellow_large).into(main_weather_icon)
                                 in 11..25 -> Glide.with(applicationContext).load(R.drawable.sun_clouds_light).into(main_weather_icon)
