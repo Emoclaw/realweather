@@ -30,27 +30,29 @@ ListAdapter<Weather, DailyWeatherAdapter.ViewHolder>(WeatherDiffCallBack()) {
         holder.degreeTextView.text = weather.degrees.roundToInt().toString() + "°C"
         val cal: Calendar = Calendar.getInstance()
         val tz: TimeZone = cal.timeZone
-        val sdf = SimpleDateFormat("EEE")
+        var sdf = SimpleDateFormat("EEE")
         sdf.timeZone = tz
-        holder.dayTextView.text = "$sdf."
+        holder.dayTextView.text = sdf.format(Date(weather.time * 1000))
+        sdf = SimpleDateFormat("MMM. dd")
+        holder.dateTextView.text = sdf.format(Date(weather.time * 1000))
         //TODO: expand icons (clouds, rain, snow etc)
-//        if (weather.icon[2] == 'd') {
-//            when (weather.clouds) {
-//                in 0..10  -> Glide.with(mContext).load(R.drawable.sun_yellow_large).into(holder.weatherImageView)
-//                in 11..25 -> Glide.with(mContext).load(R.drawable.sun_clouds_light).into(holder.weatherImageView)
-//                in 26..50 -> Glide.with(mContext).load(R.drawable.sun_clouds_scattered).into(holder.weatherImageView)
-//                else -> Glide.with(mContext).load(R.drawable.clouds_broken_overcast).into(holder.weatherImageView)
-//            }
-//
-//        } else {
-//            when (weather.clouds) {
-//                in 0..10  -> Glide.with(mContext).load(R.drawable.moon).into(holder.weatherImageView)
-//                in 11..25 -> Glide.with(mContext).load(R.drawable.moon_cloud_light).into(holder.weatherImageView)
-//                in 26..50 -> Glide.with(mContext).load(R.drawable.moon_clouds_scattered).into(holder.weatherImageView)
-//                else -> Glide.with(mContext).load(R.drawable.clouds_broken_overcast).into(holder.weatherImageView)
-//            }
-//
-//        }
+        if (weather.icon[2] == 'd') {
+            when (weather.clouds) {
+                in 0..10  -> Glide.with(mContext).load(R.drawable.sun_yellow_large).into(holder.weatherImageView)
+                in 11..25 -> Glide.with(mContext).load(R.drawable.sun_clouds_light).into(holder.weatherImageView)
+                in 26..50 -> Glide.with(mContext).load(R.drawable.sun_clouds_scattered).into(holder.weatherImageView)
+                else -> Glide.with(mContext).load(R.drawable.clouds_broken_overcast).into(holder.weatherImageView)
+            }
+
+        } else {
+            when (weather.clouds) {
+                in 0..10  -> Glide.with(mContext).load(R.drawable.moon).into(holder.weatherImageView)
+                in 11..25 -> Glide.with(mContext).load(R.drawable.moon_cloud_light).into(holder.weatherImageView)
+                in 26..50 -> Glide.with(mContext).load(R.drawable.moon_clouds_scattered).into(holder.weatherImageView)
+                else -> Glide.with(mContext).load(R.drawable.clouds_broken_overcast).into(holder.weatherImageView)
+            }
+
+        }
     }
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dayTextView: TextView = itemView.findViewById(R.id.day_textview)

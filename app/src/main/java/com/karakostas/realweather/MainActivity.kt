@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.fasterxml.jackson.databind.InjectableValues
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -28,12 +29,15 @@ import kotlin.math.roundToInt
 class MainActivity : AppCompatActivity() {
 private val client = OkHttpClient()
 private val adapter = HourlyWeatherAdapter()
+private val dailyAdapter = DailyWeatherAdapter()
     lateinit var fusedLocationClient : FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         rv_weather_hourly.adapter = adapter
         rv_weather_hourly.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        rv_weather_daily.adapter = dailyAdapter
+        rv_weather_daily.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -96,6 +100,7 @@ private val adapter = HourlyWeatherAdapter()
                     .url(url)
                     .build()
             var hourlyWeatherList: ArrayList<Weather>
+            var dailyWeatherList: ArrayList<Weather>
             var mainWeather: Weather
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
@@ -103,15 +108,19 @@ private val adapter = HourlyWeatherAdapter()
                 }
 
                 override fun onResponse(call: Call, response: Response) {
+                    val injectables = InjectableValues.Std().addValue("weatherType",0)
                     val mapper = jacksonObjectMapper()
+                    mapper.injectableValues = injectables
                     val node: ObjectNode = mapper.readValue(response.body!!.string())
                     mainWeather = mapper.readValue(node.get("current").toString())
                     hourlyWeatherList = mapper.readValue(node.get("hourly").toString())
-
+                    injectables.addValue("weatherType",1)
+                    dailyWeatherList = mapper.readValue(node.get("daily").toString())
                     runOnUiThread {
                         main_weather_temperature.text = mainWeather.degrees.roundToInt().toString() + "°C"
                         main_status_textview.text = mainWeather.subcat
                         adapter.submitList(hourlyWeatherList.take(23))
+                        dailyAdapter.submitList(dailyWeatherList)
                         if (System.currentTimeMillis() < mainWeather.sunset * 1000) {
                             when (mainWeather.clouds) {
                                 in 0..10  -> Glide.with(applicationContext).load(R.drawable.sun_yellow_large).into(main_weather_icon)
@@ -137,4 +146,5 @@ private val adapter = HourlyWeatherAdapter()
             //Glide.with(this).load(R.drawable.clear_sky).into(weather_image)
             Glide.with(this).load(R.drawable.location_white).into(location_icon)
         }
+
 }
