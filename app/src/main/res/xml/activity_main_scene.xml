@@ -6,27 +6,26 @@
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@+id/main_location_textview"
-            android:elevation="4dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/location_icon"
-            app:layout_constraintRight_toRightOf="parent">
+                android:id="@+id/main_location_textview"
+                android:elevation="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/location_icon"
+                app:layout_constraintRight_toRightOf="parent">
 
         </Constraint>
 
         <Constraint
-            android:id="@+id/location_icon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            app:layout_constraintBottom_toBottomOf="@id/main_location_textview"
-            app:layout_constraintRight_toLeftOf="@id/main_location_textview"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginRight="2dp"/>
-
+                android:id="@+id/location_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/main_location_textview"
+                app:layout_constraintRight_toLeftOf="@id/main_location_textview"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:layout_marginRight="2dp"/>
 
 
     </ConstraintSet>
@@ -34,30 +33,30 @@
     <ConstraintSet android:id="@+id/end">
 
         <Constraint
-            android:id="@+id/main_location_textview"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/location_icon"
-            app:layout_constraintTop_toTopOf="@id/blackbg"
-            app:layout_constraintBottom_toBottomOf="@id/blackbg"
-            android:layout_marginLeft="16dp"
-            android:scaleX="1.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:scaleY="1.5">
+                android:id="@+id/main_location_textview"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/location_icon"
+                app:layout_constraintTop_toTopOf="@id/blackbg"
+                app:layout_constraintBottom_toBottomOf="@id/blackbg"
+                android:layout_marginLeft="16dp"
+                android:scaleX="1.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:scaleY="1.5">
 
         </Constraint>
 
         <Constraint
-            android:id="@+id/location_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/main_location_textview"
-            app:layout_constraintRight_toLeftOf="@id/main_location_textview"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            android:layout_marginRight="2dp"
-            android:alpha="0.0"
-            />
+                android:id="@+id/location_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/main_location_textview"
+                app:layout_constraintRight_toLeftOf="@id/main_location_textview"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:layout_marginRight="2dp"
+                android:alpha="0.0"
+        />
 
         <Constraint
                 android:id="@+id/blackbg" app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +71,7 @@
                     android:alpha="0.0"
                     android:scaleX="0.0"
                     android:scaleY="0.0"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"/>
 
         <Constraint android:id="@+id/main_weather_icon" android:layout_width="60dp" android:layout_height="60dp"
                     app:layout_constraintBottom_toBottomOf="parent"
