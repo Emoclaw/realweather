@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -35,22 +34,30 @@ class HourlyWeatherAdapter() :
         val localTime = sdf.format(Date(weather.time * 1000))
         holder.timeTextView.text = localTime
         //TODO: expand icons (clouds, rain, snow etc)
-        if (weather.icon[2] == 'd') {
-            when (weather.clouds) {
-                in 0..10 -> Glide.with(mContext).load(R.drawable.sun_yellow_large).into(holder.weatherImageView)
-                in 11..25 -> Glide.with(mContext).load(R.drawable.sun_clouds_light).into(holder.weatherImageView)
-                in 26..50 -> Glide.with(mContext).load(R.drawable.sun_clouds_scattered).into(holder.weatherImageView)
-                else -> Glide.with(mContext).load(R.drawable.clouds_broken_overcast).into(holder.weatherImageView)
-            }
-
+        if (weather.cat[0] == 'R' || weather.cat[0] == 'D') { //Rain or Drizzle
+            if (weather.subcat[0] == 'l' || weather.subcat[0] == 's') //light or shower
+                Glide.with(mContext).load(R.drawable.light_cloud_light_rain).into(holder.weatherImageView)
+            else //heavy, extreme etc
+                Glide.with(mContext).load(R.drawable.dark_cloud_heavy_rain).into(holder.weatherImageView)
         } else {
-            when (weather.clouds) {
-                in 0..10 -> Glide.with(mContext).load(R.drawable.moon).into(holder.weatherImageView)
-                in 11..25 -> Glide.with(mContext).load(R.drawable.moon_cloud_light).into(holder.weatherImageView)
-                in 26..50 -> Glide.with(mContext).load(R.drawable.moon_clouds_scattered).into(holder.weatherImageView)
-                else -> Glide.with(mContext).load(R.drawable.clouds_broken_overcast).into(holder.weatherImageView)
-            }
+            if (weather.icon[2] == 'd') { //day
+                when (weather.clouds) {
+                    in 0..10 -> Glide.with(mContext).load(R.drawable.sun_yellow_large).into(holder.weatherImageView)
+                    in 11..25 -> Glide.with(mContext).load(R.drawable.sun_clouds_light).into(holder.weatherImageView)
+                    in 26..50 -> Glide.with(mContext).load(R.drawable.sun_clouds_scattered)
+                        .into(holder.weatherImageView)
+                    else -> Glide.with(mContext).load(R.drawable.clouds_broken_overcast).into(holder.weatherImageView)
+                }
 
+            } else { //night
+                when (weather.clouds) {
+                    in 0..10 -> Glide.with(mContext).load(R.drawable.moon).into(holder.weatherImageView)
+                    in 11..25 -> Glide.with(mContext).load(R.drawable.moon_cloud_light).into(holder.weatherImageView)
+                    in 26..50 -> Glide.with(mContext).load(R.drawable.moon_clouds_scattered)
+                        .into(holder.weatherImageView)
+                    else -> Glide.with(mContext).load(R.drawable.clouds_broken_overcast).into(holder.weatherImageView)
+                }
+            }
         }
 
     }

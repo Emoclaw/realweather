@@ -57,9 +57,7 @@ class MainActivity : AppCompatActivity() {
         val motionLayout: MotionLayout = findViewById(R.id.motion_layout)
         val listener = AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             val seekPosition = -verticalOffset / appBarLayout.totalScrollRange.toFloat()
-            if (seekPosition <= 50) {
-                motionLayout.progress = seekPosition
-            }
+            motionLayout.progress = seekPosition
         }
 
         appBarLayout.addOnOffsetChangedListener(listener)
@@ -123,34 +121,42 @@ class MainActivity : AppCompatActivity() {
                     main_status_textview.text = mainWeather.subcat
                     adapter.submitList(hourlyWeatherList.take(23))
                     dailyAdapter.submitList(dailyWeatherList)
-                    if (mainWeather.icon[2] == 'd') {
-                        when (mainWeather.clouds) {
-                            in 0..10 -> Glide.with(applicationContext).load(R.drawable.sun_yellow_large)
+                    if (mainWeather.cat[0] == 'R' || mainWeather.cat[0] == 'D') { //Rain or Drizzle
+                        if (mainWeather.subcat[0] == 'l' || mainWeather.subcat[0] == 's') //light or shower
+                            Glide.with(applicationContext).load(R.drawable.light_cloud_light_rain)
                                 .into(main_weather_icon)
-                            in 11..25 -> Glide.with(applicationContext).load(R.drawable.sun_clouds_light)
+                        else //heavy, extreme etc
+                            Glide.with(applicationContext).load(R.drawable.dark_cloud_heavy_rain)
                                 .into(main_weather_icon)
-                            in 26..50 -> Glide.with(applicationContext).load(R.drawable.sun_clouds_scattered)
-                                .into(main_weather_icon)
-                            else -> Glide.with(applicationContext).load(R.drawable.clouds_broken_overcast)
-                                .into(main_weather_icon)
-                        }
-
                     } else {
-                        when (mainWeather.clouds) {
-                            in 0..10 -> Glide.with(applicationContext).load(R.drawable.moon).into(main_weather_icon)
-                            in 11..25 -> Glide.with(applicationContext).load(R.drawable.moon_cloud_light)
-                                .into(main_weather_icon)
-                            in 26..50 -> Glide.with(applicationContext).load(R.drawable.moon_clouds_scattered)
-                                .into(main_weather_icon)
-                            else -> Glide.with(applicationContext).load(R.drawable.clouds_broken_overcast)
-                                .into(main_weather_icon)
+                        if (mainWeather.icon[2] == 'd') { //day
+                            when (mainWeather.clouds) {
+                                in 0..10 -> Glide.with(applicationContext).load(R.drawable.sun_yellow_large)
+                                    .into(main_weather_icon)
+                                in 11..25 -> Glide.with(applicationContext).load(R.drawable.sun_clouds_light)
+                                    .into(main_weather_icon)
+                                in 26..50 -> Glide.with(applicationContext).load(R.drawable.sun_clouds_scattered)
+                                    .into(main_weather_icon)
+                                else -> Glide.with(applicationContext).load(R.drawable.clouds_broken_overcast)
+                                    .into(main_weather_icon)
+                            }
+
+                        } else { //night
+                            when (mainWeather.clouds) {
+                                in 0..10 -> Glide.with(applicationContext).load(R.drawable.moon).into(main_weather_icon)
+                                in 11..25 -> Glide.with(applicationContext).load(R.drawable.moon_cloud_light)
+                                    .into(main_weather_icon)
+                                in 26..50 -> Glide.with(applicationContext).load(R.drawable.moon_clouds_scattered)
+                                    .into(main_weather_icon)
+                                else -> Glide.with(applicationContext).load(R.drawable.clouds_broken_overcast)
+                                    .into(main_weather_icon)
+                            }
+
                         }
 
                     }
                 }
-
             }
-
         })
         //Glide.with(this).load(R.drawable.clear_sky).into(weather_image)
         Glide.with(this).load(R.drawable.location_white).into(location_icon)
