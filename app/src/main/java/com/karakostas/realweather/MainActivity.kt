@@ -1,11 +1,13 @@
 package com.karakostas.realweather
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.app.ActivityCompat
@@ -37,6 +39,9 @@ class MainActivity : AppCompatActivity() {
         rv_weather_hourly.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
         rv_weather_daily.adapter = dailyAdapter
         rv_weather_daily.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        settings_button.setOnClickListener {
+            val intent = Intent(applicationContext, SettingsActivity::class.java)
+            startActivity(intent); }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ContextCompat.checkSelfPermission(
