@@ -39,6 +39,8 @@ class HourlyWeatherAdapter() :
                 Glide.with(mContext).load(R.drawable.light_cloud_light_rain).into(holder.weatherImageView)
             else //heavy, extreme etc
                 Glide.with(mContext).load(R.drawable.dark_cloud_heavy_rain).into(holder.weatherImageView)
+        } else if (weather.cat[0] == 'S') {
+            Glide.with(mContext).load(R.drawable.dark_clouds_snow).into(holder.weatherImageView)
         } else {
             if (weather.icon[2] == 'd') { //day
                 when (weather.clouds) {

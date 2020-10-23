@@ -133,6 +133,8 @@ class MainActivity : AppCompatActivity() {
                         else //heavy, extreme etc
                             Glide.with(applicationContext).load(R.drawable.dark_cloud_heavy_rain)
                                 .into(main_weather_icon)
+                    } else if (mainWeather.cat[0] == 'S') {
+                        Glide.with(applicationContext).load(R.drawable.dark_clouds_snow).into(main_weather_icon)
                     } else {
                         if (mainWeather.icon[2] == 'd') { //day
                             when (mainWeather.clouds) {
