@@ -7,7 +7,6 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.app.ActivityCompat
@@ -18,8 +17,7 @@ import com.fasterxml.jackson.databind.InjectableValues
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
@@ -51,11 +49,7 @@ class MainActivity : AppCompatActivity() {
         ) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
         } else {
-            fusedLocationClient.lastLocation.addOnSuccessListener(this) { location: Location? ->
-                if (location != null) {
-                    fetch(location)
-                }
-            }
+            getLocation()
         }
 
         val appBarLayout: AppBarLayout = findViewById(R.id.appbar_layout)
@@ -72,11 +66,7 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             0 -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    fusedLocationClient.lastLocation.addOnSuccessListener(this) { location: Location? ->
-                        if (location != null) {
-                            fetch(location)
-                        }
-                    }
+                    getLocation()
                 } else {
                     finish()
                 }
@@ -84,6 +74,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getLocation(){
+        fusedLocationClient.lastLocation.addOnSuccessListener(this) { location: Location? ->
+            if (location != null) {
+                fetch(location)
+            } else {
+                val locationCallback: LocationCallback = object : LocationCallback() {
+                    override fun onLocationResult(locationResult: LocationResult) {
+                        val loc = locationResult.lastLocation
+                        fetch(loc)
+                        fusedLocationClient.removeLocationUpdates(this)
+                    }
+                }
+                val mLocationRequest = LocationRequest.create()
+                mLocationRequest.interval = 60000
+                mLocationRequest.fastestInterval = 5000
+                mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                fusedLocationClient.requestLocationUpdates(mLocationRequest, locationCallback, null)
+            }
+        }
+    }
 
     private fun fetch(location: Location) {
         val geocoder = Geocoder(this, Locale.getDefault())
